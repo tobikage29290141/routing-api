@@ -1,0 +1,33 @@
+# --- Python venv ---
+venv/
+ENV/
+env/
+
+# --- Python cache ---
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# --- OS / Editor ---
+.DS_Store
+.idea/
+.vscode/
+
+# --- Secrets ---
+.env
+*.key
+*.pem
+*.crt
+*.p12
+
+# --- Logs ---
+logs/
+*.log
+
+# --- Nextcloud連携資産（将来用） ---
+nc-temp/
+nc-cache/
+
+# --- Docker（将来キメる可能性用） ---
+docker-data/
