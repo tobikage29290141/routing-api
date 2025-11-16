@@ -1,0 +1,20 @@
+基本構造
+　ファイル作成ルール　コメントでファイル名記述
+
+routing-api/
+├── main.py                 ← エントリポイント　(FastAPI本体)
+├── config/
+│   └── settings.py         ← APIキー、ENV、OCR_ENDPOINT など全部ここ
+├── routers/
+│   ├── health.py           ← /health
+│   ├── ocr.py              ← /ocr → cloud OCR内部転送
+│   ├── ai.py               ← /ai → LLM推論
+│   └── filemaker.py        ← FileMaker Gate（将来的）
+├── services/
+│   ├── ocr_service.py      ← OCR内部呼び出しのロジック
+│   ├── ai_service.py       ← AI推論ロジック（OpenAI/Ollama切替）
+│   └── db_service.py       ← DB書き込み（PostgreSQL）
+└── utils/
+    ├── security.py         ← APIキー認証
+    ├── logging.py          ← 共通ログ
+    └── http_client.py      ← requestsの共通ラッパ
