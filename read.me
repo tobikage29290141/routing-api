@@ -22,3 +22,39 @@ routing-api/
 
 Gitea Webhookよるデプロイメント構築完了　VPS側でのソース編集は禁止とします
 動作確認記述
+
+構造化分割ブログラミング発動
+下記の構造に置き換える
+routing-api/
+├── main.py
+├── config/
+│   ├── settings.py
+│   └── __init__.py
+├── core/
+│   ├── security.py        # 認証APIキー、JWTがきたらここ
+│   ├── exceptions.py      # 共通例外
+│   ├── logging.py         # JSONログなど
+│   └── __init__.py
+├── routers/
+│   ├── health.py
+│   ├── ocr.py
+│   ├── bans.py            # 今後 Cerberus と連携
+│   └── __init__.py
+├── services/
+│   ├── ocr_service.py     # OCRクラウド呼び出し
+│   ├── ai_service.py      # AI推論の呼び出し
+│   ├── firewall_service.py # Cerberus/HUBと連携
+│   └── __init__.py
+├── models/
+│   ├── ocr_models.py      # Pydanticモデル
+│   ├── common.py
+│   └── __init__.py
+├── utils/
+│   ├── normalize_text.py
+│   ├── date_extract.py
+│   ├── company_matcher.py
+│   └── __init__.py
+├── tests/
+│   └── ...（任意）
+├── requirements.txt
+└── .env
