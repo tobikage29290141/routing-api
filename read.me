@@ -1,60 +1,55 @@
 基本構造
 　ファイル作成ルール　コメントでファイル名記述
 
-routing-api/
-├── main.py                 ← エントリポイント　(FastAPI本体)
-├── config/
-│   └── settings.py         ← APIキー、ENV、OCR_ENDPOINT など全部ここ
-├── routers/
-│   ├── health.py           ← /health
-│   ├── ocr.py              ← /ocr → cloud OCR内部転送
-│   ├── ai.py               ← /ai → LLM推論
-│   └── filemaker.py        ← FileMaker Gate（将来的）
-├── services/
-│   ├── ocr_service.py      ← OCR内部呼び出しのロジック
-│   ├── ai_service.py       ← AI推論ロジック（OpenAI/Ollama切替）
-│   └── db_service.py       ← DB書き込み（PostgreSQL）
-└── utils/
-    ├── security.py         ← APIキー認証
-    ├── logging.py          ← 共通ログ
-    └── http_client.py      ← requestsの共通ラッパ
-
-
 Gitea Webhookよるデプロイメント構築完了　VPS側でのソース編集は禁止とします
 動作確認記述
 
 構造化分割ブログラミング発動
 下記の構造に置き換える
 routing-api/
-├── main.py
-├── config/
+├── main.py            ←エントリーポイント(FastAPI)本体
+├── config/            ←設定系統（環境変数・基本設定）
 │   ├── settings.py
 │   └── __init__.py
-├── core/
+├── core/　　　　　　　　　←共通の基盤ロジック置き場
 │   ├── security.py        # 認証APIキー、JWTがきたらここ
 │   ├── exceptions.py      # 共通例外
 │   ├── logging.py         # JSONログなど
 │   └── __init__.py
-├── routers/
+├── routers/            ←ルーター（エンドポイント軍）
 │   ├── health.py
 │   ├── ocr.py
 │   ├── bans.py            # 今後 Cerberus と連携
 │   └── __init__.py
-├── services/
+├── services/            ←ビジネスロジック（ocr呼び出しなど）
 │   ├── ocr_service.py     # OCRクラウド呼び出し
 │   ├── ai_service.py      # AI推論の呼び出し
 │   ├── firewall_service.py # Cerberus/HUBと連携
 │   └── __init__.py
-├── models/
+├── models/               ←DBモデル置き場（リクエスト・レスポンス）
 │   ├── ocr_models.py      # Pydanticモデル
 │   ├── common.py
 │   └── __init__.py
-├── utils/
+├── utils/                 ←共通ユーティリティ
 │   ├── normalize_text.py
 │   ├── date_extract.py
 │   ├── company_matcher.py
 │   └── __init__.py
-├── tests/
+├── tests/　　　　　　　　　← テスト
 │   └── ...（任意）
-├── requirements.txt
-└── .env
+├── requirements.txt     ←　依存パッケージ
+└── .env　　　　　　　　　　← 仮想環境
+
+今の構成から読み取れること
+routers/health.py
+→ /api/routing/health みたいなヘルスチェック用エンドポイントがここ。
+routers/ocr.py + services/ocr_service.py
+→ 「ルーター層」と「サービス層」をちゃんと分けてる構成。
+FastAPI 的にはかなり良い分割。
+utils/security.py
+→ おそらく x-api-key 認証とか、今後 JWT / Basic 認証を入れる時の共通処理置き場。
+config/settings.py
+→ Pydantic の BaseSettings で
+API_KEY, OCR_API_URL, TIMEOUT, LOG_LEVEL とかをまとめる想定だと思う。
+core/・models/・tests/ は、
+「あとでちゃんと中身入れていく箱だけ先に作ってある」状態。
