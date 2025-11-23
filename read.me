@@ -1,8 +1,18 @@
-基本構造
-　ファイル作成ルール　コメントでファイル名記述
+このプロジェクトの目的　
+　labo.sunamura-llc.com/ai-api/ においていろいろなサービスを提供する　目指すは電子秘書
+　ゆくゆくはベクトルデータベースを用いてローカルollama叩いて結果を出す方向で考えている
 
-Gitea Webhookよるデプロイメント構築完了　VPS側でのソース編集は禁止とします
+利用可能な部品たち
+　cloud.sunamura-llc.com/api/ocr/pdf PDFをOCRかける
+
+
+基本構造
+　ファイル作成ルール　１行目　コメントでファイル名記述
+　Gitea Webhookよるデプロイメント構築完了　VPS側でのソース編集は禁止とします
+
+
 動作確認記述
+
 
 構造化分割ブログラミング発動
 下記の構造に置き換える
@@ -50,6 +60,6 @@ utils/security.py
 → おそらく x-api-key 認証とか、今後 JWT / Basic 認証を入れる時の共通処理置き場。
 config/settings.py
 → Pydantic の BaseSettings で
-API_KEY, OCR_API_URL, TIMEOUT, LOG_LEVEL とかをまとめる想定だと思う。
+API_KEY, OCR_API_URL, TIMEOUT, LOG_LEVEL とかをまとめる想定。
 core/・models/・tests/ は、
 「あとでちゃんと中身入れていく箱だけ先に作ってある」状態。
