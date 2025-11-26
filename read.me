@@ -12,6 +12,10 @@
 
 
 動作確認記述
+テスト実行手順（pytest前提）
+1. 仮想環境を用意: `python3 -m venv .venv && source .venv/bin/activate`
+2. 依存インストール: `pip install -r requirements.txt` ＋ テスト用に `pip install pytest`
+3. テスト実行: `pytest` もしくは `python -m pytest tests`
 
 
 構造化分割ブログラミング発動
@@ -63,3 +67,10 @@ config/settings.py
 API_KEY, OCR_API_URL, TIMEOUT, LOG_LEVEL とかをまとめる想定。
 core/・models/・tests/ は、
 「あとでちゃんと中身入れていく箱だけ先に作ってある」状態。
+
+
+テスト実行手順（pytest前提）
+1. 仮想環境を用意: `python3 -m venv .venv && source .venv/bin/activate`
+2. 依存インストール: `pip install -r requirements.txt` ＋ テスト用に `pip install pytest`
+3. テスト実行: `pytest` もしくは `python -m pytest tests`
+ 
