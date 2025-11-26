@@ -1,7 +1,7 @@
 ## main.py
 
 from fastapi import FastAPI
-from routers import health, ocr
+from routers import health, ocr,ai
 
 app = FastAPI(
     title="Routing API",
