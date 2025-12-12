@@ -7,4 +7,4 @@ router = APIRouter()
 
 @router.get("/health", dependencies=[Depends(require_api_key)])
 def health():
-    return {"status": "ok"}
+    return {"status": "ok","message":"health check Success"}
